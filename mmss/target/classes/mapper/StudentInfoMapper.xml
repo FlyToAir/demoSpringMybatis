@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zfb.dao.StudentInfoMapper">
+    <resultMap id="BaseResultMap" type="StudentInfo">
+        <id column="S_ID" property="id" />
+        <result column="S_NAME" property="name"  />
+        <result column="S_AGE" property="age"  />
+        <result column="S_SEX" property="sex"  />
+    </resultMap>
+    <select id="selectAllStudentInfo" resultMap="BaseResultMap">
+        select S_ID, S_NAME , S_AGE, S_SEX from STUDENT
+    </select>
+    <select id="selectById"  resultMap="BaseResultMap" >
+        select S_ID, S_Name, S_AGE, S_SEX from STUDENT WHERE S_ID = #{id}
+    </select>
+    <!--useGeneratedKeys设置为"true"表明要MyBatis获取由数据库自动生成的主键；keyProperty="id"指定把获取到的主键值注入到Student的id属性-->
+    <insert id="add" parameterType="StudentInfo" useGeneratedKeys="false" keyProperty="id">
+        INSERT INTO STUDENT(s_id, s_name, s_age, s_sex)
+        VALUES (#{id}, #{name}, #{age}, #{sex})
+    </insert>
+    <delete id="deleteById" parameterType="String">
+        delete from STUDENT WHERE s_id = #{id}
+    </delete>
+</mapper>
